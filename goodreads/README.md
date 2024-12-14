@@ -10,69 +10,78 @@ Summary Statistics:
 {'book_id': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 5000.5, 'std': 2886.8956799071675, 'min': 1.0, '25%': 2500.75, '50%': 5000.5, '75%': 7500.25, 'max': 10000.0}, 'goodreads_book_id': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 5264696.5132, 'std': 7575461.863589611, 'min': 1.0, '25%': 46275.75, '50%': 394965.5, '75%': 9382225.25, 'max': 33288638.0}, 'best_book_id': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 5471213.5801, 'std': 7827329.890719961, 'min': 1.0, '25%': 47911.75, '50%': 425123.5, '75%': 9636112.5, 'max': 35534230.0}, 'work_id': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 8646183.4246, 'std': 11751060.824080039, 'min': 87.0, '25%': 1008841.0, '50%': 2719524.5, '75%': 14517748.25, 'max': 56399597.0}, 'books_count': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 75.7127, 'std': 170.47072765025834, 'min': 1.0, '25%': 23.0, '50%': 40.0, '75%': 67.0, 'max': 3455.0}, 'isbn': {'count': 9300, 'unique': 9300, 'top': '375700455', 'freq': 1, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'isbn13': {'count': 9415.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 9755044298883.463, 'std': 442861920665.57336, 'min': 195170342.0, '25%': 9780316192995.0, '50%': 9780451528640.0, '75%': 9780830777175.0, 'max': 9790007672390.0}, 'authors': {'count': 10000, 'unique': 4664, 'top': 'Stephen King', 'freq': 60, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'original_publication_year': {'count': 9979.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 1981.987674115643, 'std': 152.57666516754668, 'min': -1750.0, '25%': 1990.0, '50%': 2004.0, '75%': 2011.0, 'max': 2017.0}, 'original_title': {'count': 9415, 'unique': 9274, 'top': ' ', 'freq': 5, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'title': {'count': 10000, 'unique': 9964, 'top': 'Selected Poems', 'freq': 4, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'language_code': {'count': 8916, 'unique': 25, 'top': 'eng', 'freq': 6341, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'average_rating': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 4.002191000000001, 'std': 0.25442748053872905, 'min': 2.47, '25%': 3.85, '50%': 4.02, '75%': 4.18, 'max': 4.82}, 'ratings_count': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 54001.2351, 'std': 157369.95643554674, 'min': 2716.0, '25%': 13568.75, '50%': 21155.5, '75%': 41053.5, 'max': 4780653.0}, 'work_ratings_count': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 59687.3216, 'std': 167803.7852374182, 'min': 5510.0, '25%': 15438.75, '50%': 23832.5, '75%': 45915.0, 'max': 4942365.0}, 'work_text_reviews_count': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 2919.9553, 'std': 6124.378131569911, 'min': 3.0, '25%': 694.0, '50%': 1402.0, '75%': 2744.25, 'max': 155254.0}, 'ratings_1': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 1345.0406, 'std': 6635.626262783459, 'min': 11.0, '25%': 196.0, '50%': 391.0, '75%': 885.0, 'max': 456191.0}, 'ratings_2': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 3110.885, 'std': 9717.123578396993, 'min': 30.0, '25%': 656.0, '50%': 1163.0, '75%': 2353.25, 'max': 436802.0}, 'ratings_3': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 11475.8938, 'std': 28546.449183182456, 'min': 323.0, '25%': 3112.0, '50%': 4894.0, '75%': 9287.0, 'max': 793319.0}, 'ratings_4': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 19965.6966, 'std': 51447.35838380058, 'min': 750.0, '25%': 5405.75, '50%': 8269.5, '75%': 16023.5, 'max': 1481305.0}, 'ratings_5': {'count': 10000.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 23789.8056, 'std': 79768.88561077163, 'min': 754.0, '25%': 5334.0, '50%': 8836.0, '75%': 17304.5, 'max': 3011543.0}, 'image_url': {'count': 10000, 'unique': 6669, 'top': 'https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png', 'freq': 3332, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'small_image_url': {'count': 10000, 'unique': 6669, 'top': 'https://s.gr-assets.com/assets/nophoto/book/50x75-a91bf249278a81aabab721ef782c4a74.png', 'freq': 3332, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}}
 
 ## LLM Insights
-# Analysis Report on the Books Dataset
+# Detailed Analysis Report
 
-## Overview
-The dataset contains information about 10,000 books, represented as rows in a table with 23 columns. The columns provide various attributes such as book ID, author information, publication details, ratings, and more. This report summarizes the findings from the dataset, focusing on the characteristics of the books, missing values, summary statistics, and correlations among variables.
+## Dataset Overview
+The dataset contains 10,000 entries with 23 columns, primarily focused on book metadata sourced from Goodreads. The data includes various attributes such as book IDs, author names, publication years, average ratings, and counts of ratings and reviews. 
 
-### Dataset Structure
-- **Shape**: (10000, 23)
-- **Columns**: 
-  - `book_id`: Unique identifier for each book.
-  - `goodreads_book_id`, `best_book_id`, `work_id`: Identifiers from Goodreads.
-  - `books_count`: Number of editions of the book.
-  - `isbn`, `isbn13`: Standard identifiers for books.
-  - `authors`: Names of the authors.
-  - `original_publication_year`: Year the book was first published.
-  - `average_rating`: Average rating of the book.
-  - `ratings_count`: Total number of ratings received.
-  - `work_ratings_count`: Total ratings for the work.
-  - `work_text_reviews_count`: Total text reviews for the work.
-  - `ratings_1`, `ratings_2`, `ratings_3`, `ratings_4`, `ratings_5`: Counts of ratings from 1 to 5.
-  - `image_url`, `small_image_url`: URLs for book images.
+### Key Columns
+1. **Identifiers**: 
+   - `book_id`, `goodreads_book_id`, `best_book_id`, `work_id`
+2. **Book Details**:
+   - `isbn`, `isbn13`, `authors`, `original_publication_year`, `original_title`, `title`, `language_code`
+3. **Ratings**:
+   - `average_rating`, `ratings_count`, `work_ratings_count`, `work_text_reviews_count`
+   - Ratings breakdown: `ratings_1`, `ratings_2`, `ratings_3`, `ratings_4`, `ratings_5`
+4. **Images**:
+   - `image_url`, `small_image_url`
 
-### Missing Values
-The dataset has several missing values in key columns:
-- `isbn`: 700 missing entries
-- `isbn13`: 585 missing entries
-- `original_publication_year`: 21 missing entries
-- `original_title`: 585 missing entries
-- `language_code`: 1084 missing entries
+## Missing Values Summary
+- The dataset has some missing values in several columns:
+  - `isbn`: 700 missing entries
+  - `isbn13`: 585 missing entries
+  - `original_publication_year`: 21 missing entries
+  - `original_title`: 585 missing entries
+  - `language_code`: 1084 missing entries
 
-### Summary Statistics
-#### Key Statistics:
-- **Average Rating**: Mean rating of 4.00 (standard deviation of 0.25).
-- **Ratings Count**: Average of 54,001 ratings (with a high standard deviation of 157,370), indicating a wide range of popularity among books.
-- **Books Count**: Average of 75.71 editions per book, with a maximum of 3,455 editions for a single book.
-- **Original Publication Year**: The mean year is approximately 1982, with the earliest publication year being as early as -1750 (indicating a potential data entry error) and the latest being 2017.
+## Summary Statistics
+### Basic Statistics
+- **Book ID**: 
+  - Range: 1 to 10,000
+  - Mean: 5,000.5
+- **Goodreads Book ID**:
+  - Mean: 5,264,696.51
+  - Max: 33,288,638
+- **Average Rating**: 
+  - Mean: 4.00
+  - Range: 2.47 to 4.82
+- **Ratings Count**: 
+  - Mean: 54,001
+  - Max: 4,780,653
 
-#### Distribution of Ratings:
-- Ratings are heavily skewed towards higher values:
-  - The average number of 5-star ratings is 23,790, while the average for 1-star ratings is only 1,345.
-- The distribution of ratings suggests that books generally receive more positive reviews.
+### Author Insights
+- The dataset features 4,664 unique authors, with Stephen King being the most frequently mentioned, appearing in 60 entries.
 
-### Author Analysis
-- The dataset lists 4,664 unique authors, with Stephen King being the most common, appearing 60 times.
-- This indicates a diversity in authorship, but also highlights the dominance of popular authors in the dataset.
+### Publication Year Insights
+- The average original publication year is approximately 1982, with the oldest book published as early as 1750 and the latest in 2017.
 
-### Language Code Distribution
-- There are 25 unique language codes recorded, with 'eng' (English) being the most frequent, appearing 6,341 times.
-- A significant number of entries (1,084) have missing language codes, which could affect analysis.
+### Language Insights
+- 8,916 entries have a language code, with English (`eng`) being the most common, appearing 6,341 times.
 
-### Correlation Matrix
-The correlation matrix reveals several interesting relationships:
-- **Ratings Count and Work Ratings Count**: Strong positive correlation (0.995), indicating that books with more ratings also tend to have higher counts of work ratings.
-- **Average Rating and Ratings Count**: A moderate positive correlation (0.045), suggesting that there is some relationship between the average rating and the number of ratings received.
-- **Ratings Distribution**: The correlations among the different ratings (1 to 5) are all positive and strong, indicating that books that receive high counts in one rating category tend to receive high counts in others.
+## Correlation Analysis
+A correlation matrix was generated to understand the relationships between different numerical variables:
 
-### Key Insights
-1. **High Ratings Are Common**: Most books have high average ratings, which could suggest a bias in the dataset towards more popular or well-reviewed books.
-2. **Missing Data**: A significant amount of missing data in key columns like `isbn`, `original_title`, and `language_code` could limit the comprehensiveness of certain analyses.
-3. **Author Popularity**: The presence of a few authors with high counts indicates that certain authors dominate the platform, which may not reflect the entire range of literature.
-4. **Diverse Language Representation**: While the dataset is predominantly in English, the presence of other languages suggests a broader scope of representation but may require further exploration.
+### Notable Correlations
+- **Ratings Count and Work Ratings Count**: Strong positive correlation (0.995) indicates that books with more ratings also tend to have more work ratings.
+- **Average Rating and Ratings Count**: Moderate positive correlation (0.045) suggests that higher-rated books receive more ratings.
+- **Books Count and Ratings**: Positive correlations are observed between `books_count` and various rating categories, indicating that books with more editions or works tend to receive a broader range of ratings.
 
-### Conclusion
-This dataset provides a rich source of information for analyzing book ratings, publication histories, and author contributions. However, future analyses should address the missing data and consider the implications of the skewed rating distributions to ensure a more balanced understanding of the literary landscape represented in the dataset. Further exploration could include sentiment analysis of text reviews and deeper comparisons among authors and genres.
+### Negative Correlations
+- **Ratings Count and Average Rating**: A slight negative correlation (-0.041) indicates that a higher volume of ratings does not necessarily correlate with a higher average rating.
+
+## Recommendations
+1. **Data Cleaning**: Address the missing values in critical columns like `isbn`, `original_publication_year`, and `language_code`. This may involve imputing missing data or removing affected entries.
+  
+2. **Further Analysis**: 
+   - Investigate the relationship between `original_publication_year` and `average_rating` to see if newer books are rated higher.
+   - Explore why certain authors, such as Stephen King, have significantly more books listed compared to others.
+  
+3. **Visualization**: Create visualizations (e.g., histograms, scatter plots) to better understand the distribution of ratings and publication years. 
+
+4. **Recommendation System**: Develop a recommendation engine based on average ratings and ratings counts to suggest books to users based on their reading history.
+
+## Conclusion
+The dataset provides a comprehensive view of books available on Goodreads, with valuable insights into author popularity, publication trends, and user ratings. Addressing missing data and further exploring correlations can enhance the usability and insights derived from this dataset.
 
 ## Charts
 ![goodreads\goodreads_heatmap.png](goodreads\goodreads_heatmap.png)
