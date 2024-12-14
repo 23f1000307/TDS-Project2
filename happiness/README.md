@@ -10,119 +10,121 @@ Summary Statistics:
 {'Country name': {'count': 2363, 'unique': 165, 'top': 'Argentina', 'freq': 18, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'year': {'count': 2363.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 2014.7638595006347, 'std': 5.059436468192795, 'min': 2005.0, '25%': 2011.0, '50%': 2015.0, '75%': 2019.0, 'max': 2023.0}, 'Life Ladder': {'count': 2363.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 5.483565806178587, 'std': 1.1255215132391925, 'min': 1.281, '25%': 4.647, '50%': 5.449, '75%': 6.3235, 'max': 8.019}, 'Log GDP per capita': {'count': 2335.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 9.399671092077089, 'std': 1.1520694444710216, 'min': 5.527, '25%': 8.506499999999999, '50%': 9.503, '75%': 10.3925, 'max': 11.676}, 'Social support': {'count': 2350.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 0.8093693617021277, 'std': 0.12121176420299144, 'min': 0.228, '25%': 0.744, '50%': 0.8345, '75%': 0.904, 'max': 0.987}, 'Healthy life expectancy at birth': {'count': 2300.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 63.40182826086957, 'std': 6.842644351828009, 'min': 6.72, '25%': 59.195, '50%': 65.1, '75%': 68.5525, 'max': 74.6}, 'Freedom to make life choices': {'count': 2327.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 0.750281908036098, 'std': 0.13935703459253465, 'min': 0.228, '25%': 0.661, '50%': 0.771, '75%': 0.862, 'max': 0.985}, 'Generosity': {'count': 2282.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 9.772129710780206e-05, 'std': 0.16138760312630687, 'min': -0.34, '25%': -0.112, '50%': -0.022, '75%': 0.09375, 'max': 0.7}, 'Perceptions of corruption': {'count': 2238.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 0.7439709562109026, 'std': 0.1848654805936834, 'min': 0.035, '25%': 0.687, '50%': 0.7985, '75%': 0.86775, 'max': 0.983}, 'Positive affect': {'count': 2339.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 0.6518820008550662, 'std': 0.10623970474397627, 'min': 0.179, '25%': 0.572, '50%': 0.663, '75%': 0.737, 'max': 0.884}, 'Negative affect': {'count': 2347.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 0.27315083084789094, 'std': 0.08713107245795021, 'min': 0.083, '25%': 0.209, '50%': 0.262, '75%': 0.326, 'max': 0.705}}
 
 ## LLM Insights
-# Detailed Analysis Report
+# Detailed Analysis Report on the Happiness and Well-Being Dataset
 
-## Dataset Overview
+## Overview
 
-The dataset contains 2363 entries across 11 columns, capturing various metrics related to well-being across multiple countries from 2005 to 2023. The following columns are included:
+This report provides a detailed analysis of a dataset containing information on various factors affecting happiness and well-being across different countries and years. The dataset consists of 2,363 records with 11 attributes, including life satisfaction (Life Ladder), economic factors (Log GDP per capita), and social factors (Social support, Healthy life expectancy, etc.).
 
-1. **Country name**: The name of the country.
-2. **Year**: The year of the data entry.
-3. **Life Ladder**: A measure of subjective well-being.
-4. **Log GDP per capita**: The logarithm of GDP per capita, indicating economic prosperity.
-5. **Social support**: A measure of perceived social support.
-6. **Healthy life expectancy at birth**: The average number of years a newborn is expected to live in good health.
-7. **Freedom to make life choices**: A measure of personal freedom.
-8. **Generosity**: A measure of charitable giving.
-9. **Perceptions of corruption**: A measure of how corrupt a country is perceived to be.
-10. **Positive affect**: The presence of positive emotions.
-11. **Negative affect**: The presence of negative emotions.
+### Dataset Composition
+
+- **Shape**: (2363 rows, 11 columns)
+- **Columns**:
+  - `Country name`: Name of the country (categorical)
+  - `year`: Year of the observation (integer)
+  - `Life Ladder`: Subjective well-being score (float)
+  - `Log GDP per capita`: Natural logarithm of GDP per capita (float)
+  - `Social support`: Support received from family and friends (float)
+  - `Healthy life expectancy at birth`: Average healthy life expectancy (float)
+  - `Freedom to make life choices`: Freedom perceived by individuals (float)
+  - `Generosity`: Self-reported generosity score (float)
+  - `Perceptions of corruption`: Perception of corruption in society (float)
+  - `Positive affect`: Frequency of positive emotions (float)
+  - `Negative affect`: Frequency of negative emotions (float)
 
 ### Missing Values
 
-The dataset has several missing values across different columns:
+- The dataset has several missing values distributed across various columns:
+  - `Log GDP per capita`: 28 missing
+  - `Social support`: 13 missing
+  - `Healthy life expectancy at birth`: 63 missing
+  - `Freedom to make life choices`: 36 missing
+  - `Generosity`: 81 missing
+  - `Perceptions of corruption`: 125 missing
+  - `Positive affect`: 24 missing
+  - `Negative affect`: 16 missing
 
-- **Log GDP per capita**: 28 missing values
-- **Social support**: 13 missing values
-- **Healthy life expectancy at birth**: 63 missing values
-- **Freedom to make life choices**: 36 missing values
-- **Generosity**: 81 missing values
-- **Perceptions of corruption**: 125 missing values
-- **Positive affect**: 24 missing values
-- **Negative affect**: 16 missing values
+### Summary Statistics
 
-Careful handling of these missing values is necessary for accurate analysis.
+The summary statistics reveal various insights into the data distribution:
 
-## Summary Statistics
+- **Life Ladder**: 
+  - Mean: 5.48
+  - Range: 1.28 to 8.02
+  - Standard Deviation: 1.13
+  - Indicates a moderate level of subjective well-being across countries.
 
-### Year
-- **Mean**: 2014.76
-- **Standard Deviation**: 5.06
-- **Range**: 2005 - 2023
+- **Log GDP per capita**: 
+  - Mean: 9.40
+  - Range: 5.53 to 11.68
+  - Standard Deviation: 1.15
+  - Positive GDP correlation with happiness.
 
-### Life Ladder
-- **Mean**: 5.48
-- **Standard Deviation**: 1.13
-- **Range**: 1.28 - 8.02
+- **Social support**: 
+  - Mean: 0.81
+  - Range: 0.23 to 0.99
+  - Standard Deviation: 0.12
+  - Suggests a significant impact of social support on well-being.
 
-### Log GDP per capita
-- **Mean**: 9.40
-- **Standard Deviation**: 1.15
-- **Range**: 5.53 - 11.68
+- **Healthy life expectancy**: 
+  - Mean: 63.40 years
+  - Range: 6.72 to 74.60 years
+  - Standard Deviation: 6.84
+  - Healthier populations tend to report higher life satisfaction.
 
-### Social Support
-- **Mean**: 0.81
-- **Standard Deviation**: 0.12
-- **Range**: 0.23 - 0.99
+- **Freedom to make life choices**: 
+  - Mean: 0.75
+  - Range: 0.23 to 0.99
+  - Standard Deviation: 0.14
+  - Indicates that autonomy is linked with happiness.
 
-### Healthy Life Expectancy at Birth
-- **Mean**: 63.40
-- **Standard Deviation**: 6.84
-- **Range**: 6.72 - 74.60
+- **Generosity**: 
+  - Mean: 0.0001 (nearly zero)
+  - Range: -0.34 to 0.7
+  - Standard Deviation: 0.16
+  - Suggests that generosity is less consistently reported.
 
-### Freedom to Make Life Choices
-- **Mean**: 0.75
-- **Standard Deviation**: 0.14
-- **Range**: 0.23 - 0.99
+- **Perceptions of corruption**: 
+  - Mean: 0.74
+  - Range: 0.035 to 0.98
+  - Standard Deviation: 0.18
+  - Higher perceptions of corruption correlate negatively with well-being.
 
-### Generosity
-- **Mean**: 0.0001
-- **Standard Deviation**: 0.16
-- **Range**: -0.34 - 0.70
+- **Positive and Negative affect**:
+  - Positive affect mean: 0.65, Negative affect mean: 0.27
+  - Indicates a tendency towards positive emotions outweighing negative ones.
 
-### Perceptions of Corruption
-- **Mean**: 0.74
-- **Standard Deviation**: 0.18
-- **Range**: 0.035 - 0.98
+### Correlation Analysis
 
-### Positive Affect
-- **Mean**: 0.65
-- **Standard Deviation**: 0.11
-- **Range**: 0.18 - 0.88
+The correlation matrix highlights relationships between key variables:
 
-### Negative Affect
-- **Mean**: 0.27
-- **Standard Deviation**: 0.09
-- **Range**: 0.08 - 0.71
+- **Life Ladder** is significantly correlated with:
+  - **Log GDP per capita** (0.78): Strong positive correlation, suggesting that wealthier countries tend to have happier populations.
+  - **Social support** (0.72): Indicates the importance of social connections.
+  - **Healthy life expectancy** (0.71): Healthier countries report higher life satisfaction.
+  - **Freedom to make life choices** (0.54): Reflects the importance of individual autonomy.
+  - **Perceptions of corruption** (-0.43): Higher corruption perceptions lead to lower life satisfaction.
+  - **Positive affect** (0.51) and **Negative affect** (-0.35): Shows emotional well-being is closely linked to overall life satisfaction.
 
-## Correlation Analysis
+### Conclusion
 
-### Key Correlations
+The analysis of the dataset reveals that various socio-economic and health-related factors significantly influence happiness and well-being across countries. Key findings include:
 
-1. **Life Ladder & Log GDP per capita**: Strong positive correlation (0.78)
-2. **Life Ladder & Social Support**: Strong positive correlation (0.72)
-3. **Life Ladder & Healthy Life Expectancy**: Strong positive correlation (0.71)
-4. **Life Ladder & Freedom to Make Life Choices**: Moderate positive correlation (0.54)
-5. **Life Ladder & Positive Affect**: Moderate positive correlation (0.52)
-6. **Life Ladder & Perceptions of Corruption**: Moderate negative correlation (-0.43)
-7. **Negative Affect & Life Ladder**: Moderate negative correlation (-0.35)
-
-### Observations
-- Economic prosperity (Log GDP per capita) significantly influences subjective well-being (Life Ladder).
-- Social support, healthy life expectancy, and personal freedom also contribute positively to an individual's perceived well-being.
-- Higher perceptions of corruption are associated with lower life satisfaction.
-- Positive affect correlates positively with life satisfaction, while negative affect correlates negatively.
-
-## Conclusion
-
-The dataset provides valuable insights into the factors influencing life satisfaction across various countries over the years. It highlights the importance of economic factors, social support, and personal freedoms in determining well-being. The moderate to strong correlations observed between the Life Ladder and other variables suggest that policies aimed at improving economic conditions, social support systems, and reducing corruption could enhance the overall well-being of populations.
+1. **Economic Prosperity**: Countries with higher GDP per capita tend to report higher life satisfaction.
+2. **Social Support**: Strong social networks and support systems correlate positively with happiness.
+3. **Health**: Higher life expectancy and health metrics correlate with increased subjective well-being.
+4. **Freedom and Corruption**: Countries that provide more freedom and have lower corruption perceptions report higher life satisfaction.
 
 ### Recommendations
-1. **Address Missing Values**: Explore methods to handle missing data, such as imputation or exclusion, based on the analysis purpose.
-2. **Further Analysis**: Conduct regression analysis to quantify the impact of each factor on life satisfaction.
-3. **Policy Implications**: Encourage policies that focus on improving GDP per capita, social support networks, and reducing corruption to foster a higher quality of life.
 
-This report provides a foundational understanding of the dataset, and further investigation can yield actionable insights for policymakers and researchers alike.
+To enhance overall well-being in various countries, policymakers should consider:
+
+- Investing in economic growth and equitable wealth distribution.
+- Promoting social support systems and community engagement.
+- Improving healthcare access and public health initiatives.
+- Strengthening governance to reduce corruption and promote transparency.
+
+This analysis serves as a foundation for understanding the complex relationships between various factors influencing happiness and can guide future research and policy decisions.
 
 ## Charts
 ![happiness\happiness_heatmap.png](happiness\happiness_heatmap.png)
