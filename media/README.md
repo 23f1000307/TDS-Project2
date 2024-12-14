@@ -13,94 +13,97 @@ Summary Statistics:
 # Detailed Analysis Report
 
 ## Dataset Overview
+The dataset consists of 2,652 entries with 8 columns, capturing various aspects related to movies, including their ratings and metadata. The columns are as follows:
 
-The dataset consists of 2,652 records and 8 attributes. The columns in the dataset are:
+1. **date**: Date of the entry (string, object type)
+2. **language**: Language of the movie (string, object type)
+3. **type**: Type of content (e.g., movie, series) (string, object type)
+4. **title**: Title of the movie (string, object type)
+5. **by**: Name of the reviewer or contributor (string, object type)
+6. **overall**: Overall rating (integer)
+7. **quality**: Quality rating (integer)
+8. **repeatability**: Repeatability rating (integer)
 
-- **date**: The date of the record (object type).
-- **language**: The language in which the content is presented (object type).
-- **type**: The type of content (object type), such as movie, series, etc.
-- **title**: The title of the content (object type).
-- **by**: The creator or author of the content (object type).
-- **overall**: An overall rating score (integer type).
-- **quality**: A quality rating score (integer type).
-- **repeatability**: A repeatability score (integer type).
-
-### Shape and Size
-- **Number of Records**: 2652
-- **Number of Attributes**: 8
-
-## Missing Values
-The dataset has some missing values:
-- **date**: 99 missing values
-- **by**: 262 missing values
-- Other columns do not have missing values.
-
-The presence of missing values in the 'date' and 'by' columns could affect analysis, particularly when examining trends over time or contributions by specific authors.
+### Shape and Structure
+- **Shape**: (2652, 8)
+- **Missing Values**: 
+  - Date: 99 missing entries
+  - By: 262 missing entries
+  - All other columns have no missing values.
 
 ## Summary Statistics
 ### Date
-- **Count**: 2553 (indicating that 99 entries are missing)
-- **Unique Entries**: 2055
-- **Most Frequent Date**: '21-May-06' (appearing 8 times)
+- **Count**: 2,553 non-missing values
+- **Unique**: 2,055 unique dates
+- **Most Frequent Date**: '21-May-06' (8 occurrences)
 
 ### Language
-- **Count**: 2652
-- **Unique Languages**: 11
-- **Most Frequent Language**: 'English' (appearing 1306 times)
+- **Count**: 2,652 entries
+- **Unique**: 11 languages
+- **Most Frequent Language**: 'English' (1,306 occurrences)
 
 ### Type
-- **Count**: 2652
-- **Unique Types**: 8
-- **Most Frequent Type**: 'movie' (appearing 2211 times)
+- **Count**: 2,652 entries
+- **Unique**: 8 types
+- **Most Frequent Type**: 'movie' (2,211 occurrences)
 
 ### Title
-- **Count**: 2652
-- **Unique Titles**: 2312
-- **Most Frequent Title**: 'Kanda Naal Mudhal' (appearing 9 times)
+- **Count**: 2,652 entries
+- **Unique**: 2,312 titles
+- **Most Frequent Title**: 'Kanda Naal Mudhal' (9 occurrences)
 
 ### By
-- **Count**: 2390
-- **Unique Authors**: 1528
-- **Most Frequent Author**: 'Kiefer Sutherland' (appearing 48 times)
+- **Count**: 2,390 non-missing entries
+- **Unique**: 1,528 reviewers
+- **Most Frequent Reviewer**: 'Kiefer Sutherland' (48 occurrences)
 
-### Overall Rating
-- **Mean**: 3.05
-- **Standard Deviation**: 0.76
-- **Minimum**: 1
-- **Maximum**: 5
-- **Distribution**: 25th percentile: 3, 50th percentile: 3, 75th percentile: 3
+### Ratings
+- **Overall Rating**:
+  - Mean: 3.05
+  - Standard Deviation: 0.76
+  - Range: 1 to 5
 
-### Quality Rating
-- **Mean**: 3.21
-- **Standard Deviation**: 0.80
-- **Minimum**: 1
-- **Maximum**: 5
-- **Distribution**: 25th percentile: 3, 50th percentile: 3, 75th percentile: 4
+- **Quality Rating**:
+  - Mean: 3.21
+  - Standard Deviation: 0.80
+  - Range: 1 to 5
 
-### Repeatability Score
-- **Mean**: 1.49
-- **Standard Deviation**: 0.60
-- **Minimum**: 1
-- **Maximum**: 3
-- **Distribution**: 25th percentile: 1, 50th percentile: 1, 75th percentile: 2
+- **Repeatability Rating**:
+  - Mean: 1.49
+  - Standard Deviation: 0.60
+  - Range: 1 to 3
 
 ## Correlation Analysis
-A correlation matrix was generated to understand the relationships between the numerical attributes:
+The correlation matrix highlights how the ratings relate to each other:
 
-- **Overall and Quality**: Correlation coefficient = 0.826, indicating a strong positive relationship; as the overall rating increases, the quality rating tends to increase as well.
-- **Overall and Repeatability**: Correlation coefficient = 0.513, indicating a moderate positive relationship.
-- **Quality and Repeatability**: Correlation coefficient = 0.312, suggesting a weak positive relationship.
+- **Overall vs Quality**: 0.83 (strong positive correlation)
+- **Overall vs Repeatability**: 0.51 (moderate positive correlation)
+- **Quality vs Repeatability**: 0.31 (weak positive correlation)
 
-These correlations suggest that the overall rating and quality rating are closely related, while repeatability appears to have a weaker connection to both ratings.
+### Insights from Correlations
+- There is a strong relationship between overall ratings and quality ratings, indicating that higher quality ratings generally lead to higher overall ratings.
+- The relationship between overall ratings and repeatability is moderate, suggesting that movies rated highly overall may also be seen as worth watching again.
+- Quality and repeatability have a weaker correlation, indicating that a movie's quality may not necessarily influence whether someone would want to watch it again.
 
-## Conclusion and Recommendations
-1. **Data Cleaning**: Address missing values, particularly in the 'date' and 'by' columns, to ensure comprehensive analysis.
-2. **Language Analysis**: Given that 'English' is the most common language, further analysis could explore content diversity in the dataset.
-3. **Type Distribution**: With 'movie' being the predominant type, it may be beneficial to delve deeper into the ratings specific to different types of content.
-4. **Author Contributions**: Investigate the influence of various authors on ratings, especially those with a higher frequency of appearances.
-5. **Detailed Quality Assessment**: Conduct a deeper analysis of how the quality and repeatability ratings influence overall ratings, focusing on specific subsets of the dataset.
+## Missing Values Analysis
+- The dataset has a notable number of missing values in the **date** and **by** columns. This could impact analyses that depend on temporal trends or reviewer comparisons.
 
-This dataset provides a solid foundation for further exploration into content ratings and trends, and the recommendations above could help enhance the insights drawn from it.
+### Recommendations:
+1. **Handling Missing Values**: 
+   - Investigate the cause of missing values in the **date** and **by** columns. Consider filling in missing values using imputation methods or by flagging them for further analysis.
+  
+2. **Exploratory Data Analysis (EDA)**:
+   - Conduct EDA to analyze trends over time, particularly focusing on how ratings have changed.
+   - Explore the distribution of ratings by language and type to identify patterns or preferences.
+
+3. **Further Correlation Analysis**:
+   - Consider adding demographic or contextual information to enhance the understanding of how different factors influence ratings.
+
+4. **Data Quality Improvement**:
+   - Regularly audit and clean the dataset to maintain its integrity and reliability for future analyses.
+
+## Conclusion
+This dataset provides a rich source of information regarding movie ratings, reviewer contributions, and language preferences. The strong correlations between overall and quality ratings suggest significant insights for understanding consumer preferences in film. However, the presence of missing values and the need for further exploration indicate areas for improvement and deeper analysis.
 
 ## Charts
 ![media\media_heatmap.png](media\media_heatmap.png)
