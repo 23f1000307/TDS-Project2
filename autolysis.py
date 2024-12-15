@@ -1,209 +1,199 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "seaborn",
+#   "matplotlib",
+#    "argparse",
+#   "pandas",
+#   "requests",
+#   "openai",
+#   "numpy",
+#   "jason",
+#   "ipykernel",
+#   "chardet"  # Add all packages used in the script
+# ]
+# ///
+
+
 import os
 import pandas as pd
+import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-import traceback
 import requests
-import chardet
-import sys
+import json
+import argparse
 
-import subprocess
-
-
-# Function to install missing libraries
-def install(package):
-    try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-        print(f"{package} installed successfully.")
-    except Exception as e:
-        print(f"Failed to install {package}: {e}")
-        sys.exit(1)
-
-# Install all dependencies
-for package in ["pandas", "seaborn", "matplotlib", "requests", "chardet"]:
-    try:
-        __import__(package)
-    except ImportError:
-        print(f"Installing missing dependency: {package}")
-        install(package)
-
-# Ensure the AIPROXY_TOKEN environment variable is set
-os.environ["AIPROXY_TOKEN"] = "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIzZjEwMDAzMDdAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.NWYw284TTLJOpKuDvkoXtsnviW8y5rZeDGo4-Mv6wpU"  # Update this with your token
-
-api_proxy_token = os.environ.get("AIPROXY_TOKEN", "Token not found")
-
-if api_proxy_token == "Token not found":
+os.environ["AIPROXY_TOKEN"] = "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIzZjEwMDAzMDdAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.NWYw284TTLJOpKuDvkoXtsnviW8y5rZeDGo4-Mv6wpU"  # Replace with your token
+api_proxy_token = os.getenv("AIPROXY_TOKEN")
+if not api_proxy_token:
     raise ValueError("API proxy token is required.")
 
-# Ensure a CSV file is provided as a system argument
-if len(sys.argv) < 2:
-    raise ValueError("Please provide the path to the CSV file as a command-line argument.")
+# Function: Perform statistical analysis on a dataset
+def summarize_dataset(data):
+    print("Performing dataset analysis...")
+    stats_summary = data.describe(include='all')
+    missing_data = data.isnull().sum()
+    numeric_data = data.select_dtypes(include=[np.number])
+    skewness = numeric_data.skew()
+    kurtosis = numeric_data.kurt()
+    correlation_matrix = numeric_data.corr() if not numeric_data.empty else pd.DataFrame()
+    print("Dataset analysis completed.")
+    return stats_summary, missing_data, correlation_matrix, skewness, kurtosis
 
-csv_file_path = sys.argv[1]
-if not os.path.isfile(csv_file_path) or not csv_file_path.lower().endswith(".csv"):
-    raise ValueError("A valid CSV file path is required.")
+# Function: Identify outliers using the Interquartile Range (IQR) method
+def identify_outliers(data):
+    print("Identifying outliers...")
+    numeric_data = data.select_dtypes(include=[np.number])
+    q1 = numeric_data.quantile(0.25)
+    q3 = numeric_data.quantile(0.75)
+    iqr = q3 - q1
+    outlier_counts = ((numeric_data < (q1 - 1.5 * iqr)) | (numeric_data > (q3 + 1.5 * iqr))).sum()
+    print("Outlier identification completed.")
+    return outlier_counts
 
-# Function to detect the encoding of a file
-def detect_encoding(file_path):
-    with open(file_path, 'rb') as file:
-        result = chardet.detect(file.read(1024))
-        return result['encoding']
+# Function: Generate visual outputs from dataset analysis results
+def generate_visuals(correlation_matrix, outlier_data, dataset, output_folder):
+    print("Creating visualizations...")
 
-# Function to read a CSV file
-def read_csv(filename):
-    encodings_to_try = ['latin1', detect_encoding(filename), 'utf-8', 'utf-8-sig', 'ISO-8859-1']
-    for encoding in encodings_to_try:
-        try:
-            df = pd.read_csv(filename, encoding=encoding)
-            print(f"Dataset loaded: {filename} (Encoding: {encoding})")
-            return df
-        except Exception as e:
-            print(f"Failed with encoding {encoding}: {e}")
-    print(f"All encoding attempts failed for {filename}.")
-    return None
+    # Correlation matrix heatmap
+    if not correlation_matrix.empty:
+        plt.figure(figsize=(10, 8))
+        sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5)
+        plt.title("Correlation Matrix")
+        heatmap_path = os.path.join(output_folder, "heatmap.png")
+        plt.savefig(heatmap_path)
+        plt.close()
+    else:
+        heatmap_path = None
 
-# Function to analyze the dataset
-def analyze_data(df):
+    # Outlier visualization
+    if not outlier_data.empty and outlier_data.sum() > 0:
+        plt.figure(figsize=(10, 6))
+        outlier_data.plot(kind="bar", color="red")
+        plt.title("Outlier Counts by Column")
+        plt.xlabel("Columns")
+        plt.ylabel("Count")
+        outlier_plot_path = os.path.join(output_folder, "outliers.png")
+        plt.savefig(outlier_plot_path)
+        plt.close()
+    else:
+        outlier_plot_path = None
+
+    # Distribution plot for the first numeric column
+    numeric_columns = dataset.select_dtypes(include=[np.number]).columns
+    if len(numeric_columns) > 0:
+        first_col = numeric_columns[0]
+        plt.figure(figsize=(10, 6))
+        sns.histplot(dataset[first_col], kde=True, color="blue", bins=30)
+        plt.title(f"Distribution of {first_col}")
+        distribution_path = os.path.join(output_folder, "distribution.png")
+        plt.savefig(distribution_path)
+        plt.close()
+    else:
+        distribution_path = None
+
+    print("Visualization generation completed.")
+    return heatmap_path, outlier_plot_path, distribution_path
+
+# Function: Create a detailed Markdown report
+def create_report(stats_summary, missing_data, correlation_matrix, skewness, kurtosis, outliers, output_folder):
+    print("Compiling report...")
+    report_path = os.path.join(output_folder, "Analysis_Report.md")
     try:
-        analysis = {
-            "shape": df.shape,
-            "columns": df.dtypes.to_dict(),
-            "missing_values": df.isnull().sum().to_dict(),
-            "summary_statistics": df.describe(include="all").to_dict(),
-        }
-        numeric_data = df.select_dtypes(include=["number"])
-        if not numeric_data.empty:
-            analysis["correlation_matrix"] = numeric_data.corr().to_dict()
+        with open(report_path, "w") as report:
+            report.write("# Data Analysis Report\n\n")
+            report.write("## Summary Statistics\n")
+            report.write(stats_summary.to_markdown() + "\n\n")
+
+            report.write("## Missing Data\n")
+            report.write(missing_data.to_markdown() + "\n\n")
+
+            report.write("## Skewness\n")
+            report.write(skewness.to_markdown() + "\n\n")
+
+            report.write("## Kurtosis\n")
+            report.write(kurtosis.to_markdown() + "\n\n")
+
+            report.write("## Correlation Matrix\n")
+            if not correlation_matrix.empty:
+                report.write("![Correlation Matrix](heatmap.png)\n\n")
+            else:
+                report.write("No correlation matrix available.\n\n")
+
+            report.write("## Outliers\n")
+            report.write(outliers.to_markdown() + "\n\n")
+            report.write("![Outliers Visualization](outliers.png)\n\n")
+
+            report.write("## Data Distribution\n")
+            report.write("![Data Distribution](distribution.png)\n\n")
+
+        print(f"Report saved to {report_path}")
+    except Exception as e:
+        print(f"Error writing report: {e}")
+
+# Function: Query a language model for insights based on the dataset analysis
+def query_language_model(prompt, analysis_context):
+    print("Requesting narrative generation from LLM...")
+    api_key = os.getenv("AIPROXY_TOKEN")
+    api_url = "https://aiproxy.sanand.workers.dev/openai/v1/chat/completions"
+
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+
+    request_payload = {
+        "model": "gpt-4o-mini",
+        "messages": [
+            {"role": "system", "content": "You are a data analysis assistant."},
+            {"role": "user", "content": f"{prompt}\n\nContext:\n{analysis_context}"}
+        ],
+        "max_tokens": 1000,
+        "temperature": 0.7
+    }
+
+    try:
+        response = requests.post(api_url, headers=headers, data=json.dumps(request_payload))
+        if response.status_code == 200:
+            return response.json()["choices"][0]["message"]["content"].strip()
         else:
-            analysis["correlation_matrix"] = None
-
-        analysis["unique_values"] = df.nunique().to_dict()
-        analysis["duplicates"] = df.duplicated().sum()
-        return analysis
+            print(f"Error in LLM response: {response.status_code}, {response.text}")
+            return "Narrative generation failed."
     except Exception as e:
-        print(f"Error analyzing data: {e}")
-        traceback.print_exc()
-        return {}
+        print(f"Exception during LLM request: {e}")
+        return "Narrative generation failed."
 
-# Function to visualize the dataset
-def visualize_data(df, output_prefix):
-    charts = []
+# Main script execution
+def main(file_path):
+    print("Starting analysis pipeline...")
+
     try:
-        numeric_columns = df.select_dtypes(include=["number"]).columns
-
-        # Correlation Heatmap
-        if len(numeric_columns) > 0:
-            plt.figure(figsize=(14, 12))
-            heatmap = sns.heatmap(
-                df[numeric_columns].corr(),
-                annot=True,
-                cmap="coolwarm",
-                fmt=".2f",
-                cbar_kws={'shrink': 0.8}
-            )
-            heatmap.set_title("Correlation Heatmap")
-            heatmap_file = f"{output_prefix}_heatmap.png"
-            plt.savefig(heatmap_file, dpi=300)
-            charts.append(heatmap_file)
-            plt.close()
-
-        # Distribution Plots
-        for column in numeric_columns:
-            plt.figure(figsize=(8, 5))
-            df[column].hist(bins=30, color="skyblue", edgecolor="black")
-            plt.title(f"Distribution of {column}")
-            plt.xlabel(column)
-            plt.ylabel("Frequency")
-            dist_file = f"{output_prefix}_{column}_distribution.png"
-            plt.savefig(dist_file, dpi=300)
-            charts.append(dist_file)
-            plt.close()
-
+        dataset = pd.read_csv(file_path, encoding="ISO-8859-1")
     except Exception as e:
-        print(f"Error visualizing data: {e}")
-        traceback.print_exc()
-    return charts
-
-# Function to interact with the LLM
-def query_llm(prompt):
-    try:
-        response = requests.post(
-            'https://aiproxy.sanand.workers.dev/openai/v1/chat/completions',
-            headers={
-                'Authorization': f'Bearer {os.environ["AIPROXY_TOKEN"]}',
-                'Content-Type': 'application/json'
-            },
-            json={
-                'model': 'gpt-4o-mini',
-                'messages': [{"role": "user", "content": prompt}],
-                'temperature': 0.7,
-            }
-        )
-        response.raise_for_status()
-        return response.json()['choices'][0]['message']['content']
-    except requests.exceptions.HTTPError as err:
-        print(f"HTTP error occurred: {err}")
-        return None
-    except Exception as e:
-        print(f"Error querying LLM: {e}")
-        traceback.print_exc()
-        return None
-
-# Function to save the analysis and insights to a Markdown file
-def save_markdown(analysis, charts, insights, output_file):
-    try:
-        with open(output_file, "w") as f:
-            f.write("# Analysis Report\n\n")
-            f.write("## Dataset Analysis\n")
-            f.write(f"Shape: {analysis.get('shape')}\n")
-            f.write(f"Columns:\n{analysis.get('columns')}\n")
-            f.write(f"Missing Values:\n{analysis.get('missing_values')}\n")
-            f.write(f"Summary Statistics:\n{analysis.get('summary_statistics')}\n")
-            f.write("\n## Additional Insights\n")
-            f.write(f"Unique Values:\n{analysis.get('unique_values')}\n")
-            f.write(f"Duplicate Rows: {analysis.get('duplicates')}\n")
-            f.write("\n## LLM Insights\n")
-            f.write(insights + "\n")
-            f.write("\n## Charts\n")
-            for chart in charts:
-                f.write(f"![{chart}]({chart})\n")
-    except Exception as e:
-        print(f"Error saving Markdown file: {e}")
-        traceback.print_exc()
-
-# Ensure a directory exists for saving results
-def ensure_output_directory(dataset_name):
-    output_dir = dataset_name
-    os.makedirs(output_dir, exist_ok=True)
-    return output_dir
-
-# Main function
-def main():
-    print(f"Processing {csv_file_path}...")
-    df = read_csv(csv_file_path)
-    if df is None:
+        print(f"Error loading file: {e}")
         return
 
-    # Determine dataset name from CSV filename
-    dataset_name = os.path.splitext(os.path.basename(csv_file_path))[0]
+    stats, missing, corr_matrix, skewness, kurtosis = summarize_dataset(dataset)
+    outliers = identify_outliers(dataset)
 
-    # Create output directory for this dataset
-    output_dir = ensure_output_directory(dataset_name)
+    output_directory = "./output"
+    os.makedirs(output_directory, exist_ok=True)
 
-    # Analyze and visualize data
-    analysis = analyze_data(df)
-    charts = visualize_data(df, os.path.join(output_dir, dataset_name))
+    heatmap, outlier_chart, dist_chart = generate_visuals(corr_matrix, outliers, dataset, output_directory)
 
-    # Generate insights using LLM
-    insights = query_llm(f"Create a detailed analysis report based on this dataset:\n\n{analysis}")
-    if insights is None:
-        insights = "No insights generated from the LLM."
+    story = query_language_model("Generate a creative summary based on the analysis.", f"Stats: {stats}\nMissing: {missing}")
 
-    # Save Markdown and charts to the dataset folder
-    readme_file = os.path.join(output_dir, "README.md")
-    save_markdown(analysis, charts, insights, readme_file)
+    create_report(stats, missing, corr_matrix, skewness, kurtosis, outliers, output_directory)
 
-    print(f"Analysis completed. Results saved to {readme_file}.")
+    story_path = os.path.join(output_directory, "Data_Narrative.txt")
+    with open(story_path, "w") as narrative_file:
+        narrative_file.write(story)
+
+    print("Analysis pipeline completed.")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Automated Data Analysis")
+    parser.add_argument("csv_file", type=str, help="Path to the CSV file")
+    args = parser.parse_args()
+    main(args.csv_file)
