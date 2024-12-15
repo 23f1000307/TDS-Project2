@@ -8,10 +8,8 @@ import chardet
 import sys
 
 # Ensure the AIPROXY_TOKEN environment variable is set
-# Set the AIPROXY_TOKEN environment variable (set your API token here)
-os.environ["AIPROXY_TOKEN"] = "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIzZjEwMDAzMDdAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.NWYw284TTLJOpKuDvkoXtsnviW8y5rZeDGo4-Mv6wpU"
+os.environ["AIPROXY_TOKEN"] = "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIzZjEwMDAzMDdAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.NWYw284TTLJOpKuDvkoXtsnviW8y5rZeDGo4-Mv6wpU"  # Update this with your token
 
-# Prompt the user for their API token (if you want user input instead)
 api_proxy_token = os.environ.get("AIPROXY_TOKEN", "Token not found")
 
 if api_proxy_token == "Token not found":
@@ -59,7 +57,6 @@ def analyze_data(df):
         else:
             analysis["correlation_matrix"] = None
 
-        # Add additional insights for improved scoring
         analysis["unique_values"] = df.nunique().to_dict()
         analysis["duplicates"] = df.duplicated().sum()
         return analysis
