@@ -1,0 +1,7 @@
+# Ignore CSV files
+*.csv
+
+# Ignore output directories
+goodreads/
+happiness/
+media/
