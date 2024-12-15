@@ -7,6 +7,21 @@ import requests
 import chardet
 import sys
 
+
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Ensure dependencies are installed
+dependencies = ["pandas", "seaborn", "matplotlib", "requests", "chardet"]
+for dependency in dependencies:
+    try:
+        __import__(dependency)
+    except ImportError:
+        print(f"Missing library {dependency}, installing...")
+        install(dependency)
+
+
+        
 # Ensure the AIPROXY_TOKEN environment variable is set
 os.environ["AIPROXY_TOKEN"] = "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjIzZjEwMDAzMDdAZHMuc3R1ZHkuaWl0bS5hYy5pbiJ9.NWYw284TTLJOpKuDvkoXtsnviW8y5rZeDGo4-Mv6wpU"  # Update this with your token
 
