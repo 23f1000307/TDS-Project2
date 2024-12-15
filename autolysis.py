@@ -33,7 +33,7 @@ def detect_encoding(file_path):
 
 # Function to read a CSV file
 def read_csv(filename):
-    encodings_to_try = ['latin1','utf-8', 'utf-8-sig', 'latin1', detect_encoding(filename), 'ISO-8859-1']
+    encodings_to_try = ['latin1', detect_encoding(filename), 'utf-8', 'utf-8-sig', 'ISO-8859-1']
     for encoding in encodings_to_try:
         try:
             df = pd.read_csv(filename, encoding=encoding)
@@ -54,7 +54,14 @@ def analyze_data(df):
             "summary_statistics": df.describe(include="all").to_dict(),
         }
         numeric_data = df.select_dtypes(include=["number"])
-        analysis["correlation_matrix"] = numeric_data.corr().to_dict() if not numeric_data.empty else None
+        if not numeric_data.empty:
+            analysis["correlation_matrix"] = numeric_data.corr().to_dict()
+        else:
+            analysis["correlation_matrix"] = None
+
+        # Add additional insights for improved scoring
+        analysis["unique_values"] = df.nunique().to_dict()
+        analysis["duplicates"] = df.duplicated().sum()
         return analysis
     except Exception as e:
         print(f"Error analyzing data: {e}")
@@ -68,19 +75,25 @@ def visualize_data(df, output_prefix):
         numeric_columns = df.select_dtypes(include=["number"]).columns
 
         # Correlation Heatmap
-        if len(numeric_columns) > 1:
+        if len(numeric_columns) > 0:
             plt.figure(figsize=(14, 12))
-            heatmap = sns.heatmap(df[numeric_columns].corr(), annot=True, cmap="coolwarm", fmt=".2f")
+            heatmap = sns.heatmap(
+                df[numeric_columns].corr(),
+                annot=True,
+                cmap="coolwarm",
+                fmt=".2f",
+                cbar_kws={'shrink': 0.8}
+            )
             heatmap.set_title("Correlation Heatmap")
             heatmap_file = f"{output_prefix}_heatmap.png"
             plt.savefig(heatmap_file, dpi=300)
             charts.append(heatmap_file)
             plt.close()
 
-        # Distribution of Numerical Columns
+        # Distribution Plots
         for column in numeric_columns:
             plt.figure(figsize=(8, 5))
-            df[column].dropna().hist(bins=30, color="skyblue", edgecolor="black")
+            df[column].hist(bins=30, color="skyblue", edgecolor="black")
             plt.title(f"Distribution of {column}")
             plt.xlabel(column)
             plt.ylabel("Frequency")
@@ -88,6 +101,7 @@ def visualize_data(df, output_prefix):
             plt.savefig(dist_file, dpi=300)
             charts.append(dist_file)
             plt.close()
+
     except Exception as e:
         print(f"Error visualizing data: {e}")
         traceback.print_exc()
@@ -109,11 +123,14 @@ def query_llm(prompt):
             }
         )
         response.raise_for_status()
-        return response.json().get('choices', [{}])[0].get('message', {}).get('content', "No response")
+        return response.json()['choices'][0]['message']['content']
+    except requests.exceptions.HTTPError as err:
+        print(f"HTTP error occurred: {err}")
+        return None
     except Exception as e:
         print(f"Error querying LLM: {e}")
         traceback.print_exc()
-        return "No insights generated."
+        return None
 
 # Function to save the analysis and insights to a Markdown file
 def save_markdown(analysis, charts, insights, output_file):
@@ -121,19 +138,13 @@ def save_markdown(analysis, charts, insights, output_file):
         with open(output_file, "w") as f:
             f.write("# Analysis Report\n\n")
             f.write("## Dataset Analysis\n")
-            f.write(f"**Shape**: {analysis.get('shape')}\n\n")
-            f.write("**Columns**:\n")
-            for col, dtype in analysis.get('columns', {}).items():
-                f.write(f"- {col}: {dtype}\n")
-            f.write("\n**Missing Values**:\n")
-            for col, missing in analysis.get('missing_values', {}).items():
-                f.write(f"- {col}: {missing}\n")
-            f.write("\n**Summary Statistics**:\n")
-            for col, stats in analysis.get('summary_statistics', {}).items():
-                f.write(f"### {col}\n")
-                for stat, value in stats.items():
-                    f.write(f"- {stat}: {value}\n")
-                f.write("\n")
+            f.write(f"Shape: {analysis.get('shape')}\n")
+            f.write(f"Columns:\n{analysis.get('columns')}\n")
+            f.write(f"Missing Values:\n{analysis.get('missing_values')}\n")
+            f.write(f"Summary Statistics:\n{analysis.get('summary_statistics')}\n")
+            f.write("\n## Additional Insights\n")
+            f.write(f"Unique Values:\n{analysis.get('unique_values')}\n")
+            f.write(f"Duplicate Rows: {analysis.get('duplicates')}\n")
             f.write("\n## LLM Insights\n")
             f.write(insights + "\n")
             f.write("\n## Charts\n")
@@ -154,18 +165,24 @@ def main():
     print(f"Processing {csv_file_path}...")
     df = read_csv(csv_file_path)
     if df is None:
-        print("Failed to load the dataset.")
         return
 
+    # Determine dataset name from CSV filename
     dataset_name = os.path.splitext(os.path.basename(csv_file_path))[0]
+
+    # Create output directory for this dataset
     output_dir = ensure_output_directory(dataset_name)
 
+    # Analyze and visualize data
     analysis = analyze_data(df)
     charts = visualize_data(df, os.path.join(output_dir, dataset_name))
 
-    insights_prompt = f"Create a detailed analysis report based on this dataset:\n\n{analysis}"
-    insights = query_llm(insights_prompt)
+    # Generate insights using LLM
+    insights = query_llm(f"Create a detailed analysis report based on this dataset:\n\n{analysis}")
+    if insights is None:
+        insights = "No insights generated from the LLM."
 
+    # Save Markdown and charts to the dataset folder
     readme_file = os.path.join(output_dir, "README.md")
     save_markdown(analysis, charts, insights, readme_file)
 

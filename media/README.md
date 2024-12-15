@@ -1,250 +1,142 @@
 # Analysis Report
 
 ## Dataset Analysis
-**Shape**: (2652, 8)
+Shape: (2652, 8)
+Columns:
+{'date': dtype('O'), 'language': dtype('O'), 'type': dtype('O'), 'title': dtype('O'), 'by': dtype('O'), 'overall': dtype('int64'), 'quality': dtype('int64'), 'repeatability': dtype('int64')}
+Missing Values:
+{'date': 99, 'language': 0, 'type': 0, 'title': 0, 'by': 262, 'overall': 0, 'quality': 0, 'repeatability': 0}
+Summary Statistics:
+{'date': {'count': 2553, 'unique': 2055, 'top': '21-May-06', 'freq': 8, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'language': {'count': 2652, 'unique': 11, 'top': 'English', 'freq': 1306, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'type': {'count': 2652, 'unique': 8, 'top': 'movie', 'freq': 2211, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'title': {'count': 2652, 'unique': 2312, 'top': 'Kanda Naal Mudhal', 'freq': 9, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'by': {'count': 2390, 'unique': 1528, 'top': 'Kiefer Sutherland', 'freq': 48, 'mean': nan, 'std': nan, 'min': nan, '25%': nan, '50%': nan, '75%': nan, 'max': nan}, 'overall': {'count': 2652.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 3.0475113122171944, 'std': 0.7621797580962717, 'min': 1.0, '25%': 3.0, '50%': 3.0, '75%': 3.0, 'max': 5.0}, 'quality': {'count': 2652.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 3.2092760180995477, 'std': 0.7967426636666686, 'min': 1.0, '25%': 3.0, '50%': 3.0, '75%': 4.0, 'max': 5.0}, 'repeatability': {'count': 2652.0, 'unique': nan, 'top': nan, 'freq': nan, 'mean': 1.4947209653092006, 'std': 0.598289430580212, 'min': 1.0, '25%': 1.0, '50%': 1.0, '75%': 2.0, 'max': 3.0}}
 
-**Columns**:
-- date: object
-- language: object
-- type: object
-- title: object
-- by: object
-- overall: int64
-- quality: int64
-- repeatability: int64
-
-**Missing Values**:
-- date: 99
-- language: 0
-- type: 0
-- title: 0
-- by: 262
-- overall: 0
-- quality: 0
-- repeatability: 0
-
-**Summary Statistics**:
-### date
-- count: 2553
-- unique: 2055
-- top: 21-May-06
-- freq: 8
-- mean: nan
-- std: nan
-- min: nan
-- 25%: nan
-- 50%: nan
-- 75%: nan
-- max: nan
-
-### language
-- count: 2652
-- unique: 11
-- top: English
-- freq: 1306
-- mean: nan
-- std: nan
-- min: nan
-- 25%: nan
-- 50%: nan
-- 75%: nan
-- max: nan
-
-### type
-- count: 2652
-- unique: 8
-- top: movie
-- freq: 2211
-- mean: nan
-- std: nan
-- min: nan
-- 25%: nan
-- 50%: nan
-- 75%: nan
-- max: nan
-
-### title
-- count: 2652
-- unique: 2312
-- top: Kanda Naal Mudhal
-- freq: 9
-- mean: nan
-- std: nan
-- min: nan
-- 25%: nan
-- 50%: nan
-- 75%: nan
-- max: nan
-
-### by
-- count: 2390
-- unique: 1528
-- top: Kiefer Sutherland
-- freq: 48
-- mean: nan
-- std: nan
-- min: nan
-- 25%: nan
-- 50%: nan
-- 75%: nan
-- max: nan
-
-### overall
-- count: 2652.0
-- unique: nan
-- top: nan
-- freq: nan
-- mean: 3.0475113122171944
-- std: 0.7621797580962717
-- min: 1.0
-- 25%: 3.0
-- 50%: 3.0
-- 75%: 3.0
-- max: 5.0
-
-### quality
-- count: 2652.0
-- unique: nan
-- top: nan
-- freq: nan
-- mean: 3.2092760180995477
-- std: 0.7967426636666686
-- min: 1.0
-- 25%: 3.0
-- 50%: 3.0
-- 75%: 4.0
-- max: 5.0
-
-### repeatability
-- count: 2652.0
-- unique: nan
-- top: nan
-- freq: nan
-- mean: 1.4947209653092006
-- std: 0.598289430580212
-- min: 1.0
-- 25%: 1.0
-- 50%: 1.0
-- 75%: 2.0
-- max: 3.0
-
+## Additional Insights
+Unique Values:
+{'date': 2055, 'language': 11, 'type': 8, 'title': 2312, 'by': 1528, 'overall': 5, 'quality': 5, 'repeatability': 3}
+Duplicate Rows: 1
 
 ## LLM Insights
 # Detailed Analysis Report
 
 ## Dataset Overview
 
-The dataset consists of 2,652 entries with 8 attributes related to various items, likely media content such as movies or shows. The attributes include:
+The dataset consists of 2,652 entries with 8 columns. It contains information related to some form of reviews or ratings, likely for movies or similar content, based on the attributes provided.
 
-1. **date**: The date associated with the entry.
-2. **language**: The language of the content.
-3. **type**: The type of content (e.g., movie, series).
-4. **title**: The title of the content.
-5. **by**: The creator or contributor of the content.
-6. **overall**: An overall rating of the content.
-7. **quality**: A quality rating of the content.
-8. **repeatability**: A rating indicating how repeatable the content is.
+### Shape of the Dataset
+- **Total Rows:** 2652
+- **Total Columns:** 8
 
-### Dimensions
+### Columns Description
+1. **date**: The date associated with the entry (string).
+2. **language**: The language of the content (string).
+3. **type**: The type of content (string).
+4. **title**: The title of the content (string).
+5. **by**: The name of the reviewer or the person associated (string).
+6. **overall**: The overall rating (integer).
+7. **quality**: The quality rating (integer).
+8. **repeatability**: The repeatability rating (integer).
 
-- **Rows**: 2,652
-- **Columns**: 8
+### Missing Values
+There are missing values in the dataset:
+- `date`: 99 missing entries
+- `by`: 262 missing entries
+- All other fields have no missing values.
 
-## Missing Values
+### Summary Statistics
+The following summary statistics provide insights into the columns:
 
-The dataset has missing values in the following attributes:
+#### Date
+- **Count:** 2553
+- **Unique Dates:** 2055
+- **Most Frequent Date:** 21-May-06 (8 occurrences)
 
-- **date**: 99 missing values (approximately 3.73% of the dataset)
-- **by**: 262 missing values (approximately 9.87% of the dataset)
+#### Language
+- **Count:** 2652
+- **Unique Languages:** 11
+- **Most Frequent Language:** English (1306 occurrences)
 
-Other columns do not have any missing values.
+#### Type
+- **Count:** 2652
+- **Unique Types:** 8
+- **Most Frequent Type:** Movie (2211 occurrences)
 
-## Summary Statistics
+#### Title
+- **Count:** 2652
+- **Unique Titles:** 2312
+- **Most Frequent Title:** Kanda Naal Mudhal (9 occurrences)
 
-### Categorical Columns
+#### By
+- **Count:** 2390
+- **Unique Reviewers:** 1528
+- **Most Frequent Reviewer:** Kiefer Sutherland (48 occurrences)
 
-1. **date**:
-   - Unique dates: 2,055
-   - Most frequent date: '21-May-06' (8 occurrences)
+#### Overall Rating
+- **Mean:** 3.05
+- **Standard Deviation:** 0.76
+- **Minimum:** 1
+- **Maximum:** 5
+- **25th Percentile:** 3
+- **Median:** 3
+- **75th Percentile:** 3
 
-2. **language**:
-   - Unique languages: 11
-   - Most frequent language: English (1,306 occurrences)
+#### Quality Rating
+- **Mean:** 3.21
+- **Standard Deviation:** 0.80
+- **Minimum:** 1
+- **Maximum:** 5
+- **25th Percentile:** 3
+- **Median:** 3
+- **75th Percentile:** 4
 
-3. **type**:
-   - Unique types: 8
-   - Most frequent type: movie (2,211 occurrences)
+#### Repeatability Rating
+- **Mean:** 1.49
+- **Standard Deviation:** 0.60
+- **Minimum:** 1
+- **Maximum:** 3
+- **25th Percentile:** 1
+- **Median:** 1
+- **75th Percentile:** 2
 
-4. **title**:
-   - Unique titles: 2,312
-   - Most frequent title: 'Kanda Naal Mudhal' (9 occurrences)
+### Correlation Analysis
+The correlation matrix gives insight into the relationships between the ratings:
+- **Overall vs. Quality**: 0.826 (strong positive correlation)
+- **Overall vs. Repeatability**: 0.513 (moderate positive correlation)
+- **Quality vs. Repeatability**: 0.312 (weak positive correlation)
 
-5. **by**:
-   - Unique contributors: 1,528
-   - Most frequent contributor: Kiefer Sutherland (48 occurrences)
+### Unique Values
+- **Unique Dates:** 2055
+- **Unique Languages:** 11
+- **Unique Types:** 8
+- **Unique Titles:** 2312
+- **Unique Reviewers:** 1528
+- **Overall Ratings Unique Values:** 5 (1-5)
+- **Quality Ratings Unique Values:** 5 (1-5)
+- **Repeatability Ratings Unique Values:** 3 (1-3)
 
-### Numerical Columns
+### Duplicate Entries
+There is 1 duplicate entry in the dataset.
 
-1. **overall**:
-   - Mean: 3.05
-   - Standard deviation: 0.76
-   - Minimum: 1
-   - Maximum: 5
-   - 25th percentile: 3
-   - 50th percentile (median): 3
-   - 75th percentile: 3
+## Insights and Recommendations
 
-2. **quality**:
-   - Mean: 3.21
-   - Standard deviation: 0.80
-   - Minimum: 1
-   - Maximum: 5
-   - 25th percentile: 3
-   - 50th percentile (median): 3
-   - 75th percentile: 4
+1. **Missing Data Handling**:
+   - The `date` and `by` columns have a significant amount of missing data (99 and 262 respectively). It is advisable to handle these missing values appropriately, either through imputation or removal, depending on the context of analysis.
 
-3. **repeatability**:
-   - Mean: 1.49
-   - Standard deviation: 0.60
-   - Minimum: 1
-   - Maximum: 3
-   - 25th percentile: 1
-   - 50th percentile (median): 1
-   - 75th percentile: 2
+2. **Language Distribution**:
+   - The dataset is predominantly in English. Consider analyzing the ratings and reviews in other languages to ensure a comprehensive understanding of non-English content.
 
-## Correlation Analysis
+3. **Type Analysis**:
+   - Since 'movie' is the most frequent type, it may be beneficial to segment the analysis further into sub-categories (e.g., genre) to derive more specific insights.
 
-The correlation matrix indicates the following relationships between the numerical ratings:
+4. **Rating Distributions**:
+   - The overall and quality ratings show a mean score above 3, indicating generally positive feedback. However, the repeatability rating suggests that repeat viewings or revisits might be less favorable, warranting further investigation into user engagement.
 
-- **Overall vs Quality**: Strong positive correlation (0.826)
-- **Overall vs Repeatability**: Moderate positive correlation (0.513)
-- **Quality vs Repeatability**: Weak positive correlation (0.312)
+5. **Reviewer Analysis**:
+   - With 1528 unique reviewers, understanding trends in reviews from top reviewers (like Kiefer Sutherland) could provide deeper insights into their influence on the dataset.
 
-The strong correlation between overall ratings and quality suggests that as the quality rating increases, the overall rating tends to increase as well. The moderate correlation with repeatability indicates that while there is a relationship, it is weaker compared to the overall-quality relationship.
+6. **Further Correlation Studies**:
+   - The strong correlation between overall and quality ratings suggests enhancing quality may improve overall ratings. Further analysis could explore what factors contribute most to perceived quality.
 
-## Insights & Recommendations
-
-1. **Address Missing Values**:
-   - The missing values in the 'date' and 'by' columns should be addressed. Possible strategies include imputing missing values based on the most frequent values or excluding these entries from analysis if they are not critical.
-
-2. **Focus on Quality Ratings**:
-   - Given the strong correlation between overall and quality ratings, it would be beneficial to explore the factors contributing to quality ratings further. This could involve qualitative assessments of the content or user feedback mechanisms.
-
-3. **Content Type Analysis**:
-   - With a high frequency of movies in the dataset, analyzing the ratings by type could provide insights into user preferences or trends related to different content types.
-
-4. **Language Considerations**:
-   - The predominance of English content suggests a need to analyze the ratings based on language. Future content could benefit from increasing diversity in language offerings.
-
-5. **Review Contributor Impact**:
-   - With many unique contributors and a notable frequency of a few (like Kiefer Sutherland), an analysis could be conducted to evaluate how the contributor affects the ratings, thereby informing future collaborations.
-
-6. **Trends Over Time**:
-   - The 'date' feature can be further explored to identify trends in ratings over time, which could help in understanding shifts in audience preferences or the popularity of certain content.
-
-## Conclusion
-
-This dataset offers a rich landscape of information regarding content ratings. By addressing missing values, diving deeper into the quality of content, and analyzing ratings across various dimensions, valuable insights can be drawn to enhance content offerings and align them with audience preferences. Further exploration and analysis are suggested to maximize the potential of this dataset.
+### Conclusion
+The dataset offers numerous avenues for exploration regarding content ratings and reviewer behavior. Addressing missing values, analyzing trends by language and type, and understanding reviewer impact will be critical in drawing actionable insights from this dataset.
 
 ## Charts
 ![media\media_heatmap.png](media\media_heatmap.png)
